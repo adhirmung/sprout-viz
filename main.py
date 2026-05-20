@@ -127,3 +127,12 @@ async def generate(req: GenerateRequest):
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+# ── Temporary debug (remove after confirming env vars) ────────────────────────
+@app.get("/debug/env")
+def debug_env():
+    """Returns env var NAMES only (not values) so we can see what Railway injects."""
+    keys = sorted(os.environ.keys())
+    has_key = bool(os.getenv("ANTHROPIC_API_KEY"))
+    return {"env_keys": keys, "has_anthropic_key": has_key}
